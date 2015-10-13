@@ -1,0 +1,46 @@
+*{
+	padding:0;
+	margin:0;
+}
+body{
+	background-color: #4cbe98;
+	text-align: center;
+}
+
+#text1{
+	font-size: 30px;
+	text-align: center;
+}
+#text2{
+	font-size: 30px;
+	text-align: center;
+	margin-bottom: 20px;
+
+}
+#parent{
+	clear:both;
+	text-align: center;
+	margin-bottom: 10px;
+
+}
+#body{
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+#result{
+	font-family:  'Microsoft YaHei', '微软雅黑', Heiti, '黑体', sans-serif;
+    	font-size: 40px;;
+}
+#reset{
+width: 140px;
+line-height: 38px;
+text-align: center;
+font-weight: bold;
+color: #fff;
+text-shadow:1px 1px 1px #333;
+border-radius: 5px;
+margin:0 20px 20px 0;
+position: relative;
+overflow: hidden;
+}
+img:hover{border:1px solid black;}

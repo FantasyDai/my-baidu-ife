@@ -1,61 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<mate charset="UTF-8">
-	<title>task0002</title>
+	<meta charset="UTF-8">
+	<title>石头剪刀布游戏</title>
+	<link rel="stylesheet" type="text/css" href="style/layout.css">
 </head>
 <body>
-	<input id="number1" type="text">
-<input id="number2" type="text">
-<span id="result"></span>
-<button id="addbtn"></button>
-<script>
-function $(id) {
-    return document.getElementById(id);
-}
+<div id="head">
+	<img src="images/head.png">
+</div>
 
-function add(num1, num2) {
-    return num1 + num2;
-}
-
-function renderResult(result) {
-    $("result").innerHTML = result;
-}
-
-function addEventHandle() {
-    var num1 = $("number1").value;
-    var num2 = $("number2").value;
-    var result = add(num1, num2);
-    renderResult(result);
-}
-
-function initEvent() {
-    $("addbtn").addEventListener("click", addEventHandle, false);
-}
-
-initEvent();
-</script>
-	<!--<script>
-		function $(id){
-			return document.getElementById(id);
-
-		}
-		function add(num1,num2){
-			return num1+num2;
-		}
-		function renderResult(result){
-			$("result").innerHTML=result;
-		}
-		function addEventHandle(){
-			var num1=$("number1").value;
-			var num2=$("number2").value;
-			var result=add(num1,num2);
-			renderResult(result);
-		}
-		function initEvent(){
-			$("addbtn").addEventListener("click",addEventHandle,false)
-		}
-		initEvent();
-	</script>-->
+<div id="body">
+	<p id="text1">请出拳吧，少年</p>
+	
+</div>
+<div id="parent">
+	<img  id="jiandao" src="images/jiandao.png">
+	<img  id="shitou" src="images/shitou.png">
+	<img id="bu" src="images/bu.png">
+	<span id="result"></span>
+	<img id="computerSelect">
+</div>
+<div id="bottom">
+<p id="text2">你已经获胜了<span id="wintime">0</span>次！</p>
+<button  id="reset" type="button">重新开始</button>
+</div>
+<script src="scripts/asd.js"></script>
 </body>
 </html>
