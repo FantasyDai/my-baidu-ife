@@ -43,4 +43,8 @@ margin:0 20px 20px 0;
 position: relative;
 overflow: hidden;
 }
-img:hover{border:1px solid black;}
+.select:hover {
+	-webkit-transform: scale(1.05);
+	transform: scale(1.05);
+	box-shadow: 0px 0px 18px rgba(0,0,0,.5);
+}
