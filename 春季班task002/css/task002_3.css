@@ -1,0 +1,40 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+#container{
+	width:615px;
+	height: 500px;
+	overflow: hidden;
+	position: relative;
+	margin:100px auto;
+}
+#image_list{
+	position: absolute;
+	width: 4920px; 
+}
+.img{
+	width:615px;
+	height: 500px;
+}
+#image_list .img{
+	float:left;
+}
+#button_list{
+	position: absolute;
+	left:260px;
+	top:460px;
+}
+#button_list span{
+	padding: 4px 4px;
+	border:solid 1px #000;
+	border-radius: 50%;
+	margin-right: 10px;
+	display: block;
+	float:left;
+	cursor:pointer;
+	background-color: gray;
+}
+#button_list .on{
+	background-color: orangered;
+}
