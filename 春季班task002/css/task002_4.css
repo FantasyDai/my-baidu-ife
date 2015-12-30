@@ -1,0 +1,35 @@
+*{
+	margin:0;
+	padding:0;
+}
+#myForm{
+	margin-top: 200px;
+	margin-left: 400px;
+}
+#input{
+	height:30px;
+	width:381px;
+	font-size: 20px;
+}
+#helpList{
+	border:solid 1px  #A9A9A9;
+	width:383px;
+	margin-left: 400px;
+	list-style: none;
+	border-top: none;
+	visibility: hidden;
+
+}
+#helpList li{
+	height:30px;
+	line-height: 30px;
+	font-size: 20px;
+	padding-left: 10px;
+	cursor:pointer;
+}
+#helpList li:hover{
+	background-color: #66BE91;
+}
+#helpList li .targetSpan{
+	color:red;
+}
