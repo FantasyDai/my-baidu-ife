@@ -2,8 +2,12 @@
 	margin:0;
 	padding:0;
 }
+h2{
+	margin: 100px 380px;
+	margin-bottom: 50px;
+	color:#66BE91;
+}
 #myForm{
-	margin-top: 200px;
 	margin-left: 400px;
 }
 #input{
@@ -28,6 +32,9 @@
 	cursor:pointer;
 }
 #helpList li:hover{
+
+}
+#helpList  .focused{
 	background-color: #66BE91;
 }
 #helpList li .targetSpan{
