@@ -115,8 +115,11 @@ addEvent(container,"keydown",function(event){
 			 for(var i=0;i<nextNode.length;i++){
 		 		if(focusNode.isEqualNode(nextNode[i])){
 		 			if(i==(nextNode.length-1)){
-		 			target.className="focused";
-		 			target.value=document.getElementsByClassName("targetSpan")[0].innerHTML;
+		 				addEvent(helpList,"mouseover",function(event){
+		 					event.preventDefault();
+		 				});
+		 				target.className="focused";
+		 				target.value=document.getElementsByClassName("targetSpan")[0].innerHTML;
 		 			}else{
 		 				nextNode[i+1].className="focused";
 		 				target.value=nextNode[i+1].firstChild.innerHTML+nextNode[i+1].lastChild.innerHTML;
@@ -127,6 +130,9 @@ addEvent(container,"keydown",function(event){
 		 	for(var i=0;i<nextNode.length;i++){
 		 		if(focusNode.isEqualNode(nextNode[i])){
 		 			if(i==0){
+		 				addEvent(helpList,"mouseover",function(event){
+		 					event.preventDefault();
+		 				});
 		 				target.className="focused";
 		 				target.value=document.getElementsByClassName("targetSpan")[0].innerHTML;
 		 			}else{
