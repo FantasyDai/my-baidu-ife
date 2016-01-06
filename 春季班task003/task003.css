@@ -1,0 +1,85 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body,html{
+	height: 100%;
+}
+#container{
+	height:100%;
+	
+}
+header{
+	background-color: #DDDDDD;
+	height:60px;
+	line-height: 60px;
+	position: absolute;
+	top:0;
+	width:100%;
+	border-bottom: solid 1px #CCCCCC;
+	z-index: 10;
+}
+header p{
+	margin-left: 20px;
+	color: #999999;
+	font-size: 25px;
+	font-weight: bold;
+}
+#class-list{
+	background-color: #F2F2F2;
+	width:220px;
+	height:100%;
+	position: relative;
+	border-right: solid 1px #CCCCCC;
+	float:left;
+}
+#class-list #all-class{
+	padding: 90px 0 20px 10px;
+}
+#class-list  ul{
+	margin-left: 10px;
+	list-style: none;
+}
+#class-list  .class-item{
+	margin-top: 10px;
+	margin-left: 10px;
+	padding-left: 30px;
+	background: url(images/222.png) no-repeat;
+	background-position: top left;
+	background-size: 20px 20px;
+}
+ #class-footer,#task-footer{
+	border-top: solid 1px #CCCCCC;
+	height:50px;
+	position: absolute;
+	bottom: 0;
+	
+}
+ #class-footer p,#task-footer p{
+	width: 180px;
+	line-height: 50px;
+	padding-left: 30px;
+	margin-left: 10px;
+	font-size: 15px;
+	background: url(images/add.png) no-repeat;
+	background-position: center left;
+}
+#task-list{
+	float:left;
+	width:220px;
+	height:100%;
+	border:1px solid #CCCCCC;
+
+}
+#task-list #task-state{
+	padding-top: 80px;
+	background-color: #F2F2F2;
+	overflow: hidden;
+}
+#task-list #task-state li{
+	list-style: none;
+	float: left;
+	margin-left:15px; 
+	padding-bottom: 10px;
+	font-size: 15px;
+}
