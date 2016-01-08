@@ -10,16 +10,23 @@
 	<p>GTD Tools</p> 
 </header>
 <div id="container">
-	<div id="class-list" class="content">
+	<div id="class-list-area" class="content">
 		<p id="all-class">所有任务</p>
-		<ul>分类列表
-			<li class="class-item">默认分类</li>
+		<ul id="class-list">
+			<h2>分类列表</h2>
+			<li class="class-item-0">
+				<h3 class="choosen-class">默认分类</h3>
+				<ul>
+					<li class="class-item-1">默认子分类</li>
+					<li class="class-item-1">阿萨斯</li>
+				</ul>
+			</li>
 		</ul>
 		<div id="class-footer">
-			<p id="add-class">新增分类</p>
+			<p id="class-button">新增分类</p>
 		</div>
 	</div>
-	<div id="task-list" class="content">
+	<div id="task-list-area" class="content">
 		<div id="task-state">
 			<ul>
 				<li class="task-type">所有</li>
@@ -27,23 +34,46 @@
 				<li>已完成</li>
 			</ul>
 		</div>
+		<ul id="task-list">
+			<li class="task-time">2016-01-08</li>
+			<li class="task-title">示例任务</li>
+		</ul>
 		<div id="task-footer">
-			<p id="add-task">新增任务</p>
+			<p id="task-button">新增任务</p>
 		</div>
 	</div>
 	<div id="task-area" class="content">
 		<div id="task-title">
-			<p>任务标题：</p>
+			<p>任务标题：<input type="text"></p>
 			<img src="images/save.png" id="save">
 			<img src="images/write.png" id="write">
 		</div>
 		<div id="task-date">
-			<p>任务时间：</p>
+			<p>任务时间：<input type="text"></p>
 		</div>
 		<div id="task-content">
-			<p>完成task003</p>
+			<div id="write-content">
+				<textarea></textarea>
+				<div id="write-content-button">
+					<input type="button" value="取消">
+					<input type="button" value="保存">
+				</div>
+			</div>
+			<p id="show-task"></p>
 		</div>
 	</div>
+</div>
+<div id="hidebg"></div>
+<div id="add-class">
+	<p id="new-class">新建分类<img src="images/close.png" id="cancel-class"></p>
+	<p id="input-class">分类名称：<input type="text" id="class-name"></p>
+	<p id="warning"></p>
+	<div id="add-class-button">
+	<input type="button" value="取消">
+	<input type="button" value="保存">
+	</div>
+	
+	
 </div>
 <script type="text/javascript" src="script/util.js"></script>
 <script type="text/javascript" src="script/task003.js"></script>

@@ -28,7 +28,7 @@ header p{
 	font-size: 25px;
 	font-weight: bold;
 }
-#class-list{
+#class-list-area{
 	background-color: #F2F2F2;
 	width:220px;
 	height:100%;
@@ -36,20 +36,37 @@ header p{
 	border-right: solid 1px #CCCCCC;
 	float:left;
 }
-#class-list #all-class{
+#class-list-area #all-class{
 	padding: 90px 0 20px 10px;
 }
-#class-list  ul{
-	margin-left: 10px;
+#class-list-area h2{
+	padding: 5px 0 5px 10px;
+	font-weight: normal;
+	font-size: 1em;
+	cursor: pointer;
+}
+#class-list-area  ul{
 	list-style: none;
 }
-#class-list  .class-item{
+#class-list-area  .class-item-0 h3{
 	margin-top: 10px;
-	margin-left: 10px;
-	padding-left: 30px;
+	padding: 5px 0 5px 45px;
 	background: url(images/222.png) no-repeat;
-	background-position: top left;
+	background-position: 20px 5px;
 	background-size: 20px 20px;
+	cursor: pointer;
+	font-weight: normal;
+	font-size: 1em;
+}
+#class-list-area  #class-list .choosen-class{
+	background-color: #5E636E;
+}
+#class-list-area  .class-item-0 li{
+	padding: 5px 0;
+	background: url(images/item-1.png) no-repeat;
+	background-position: 35px 5px;
+	background-size: 20px 20px;
+	padding-left: 60px;
 	cursor: pointer;
 }
  #class-footer,#task-footer{
@@ -73,7 +90,7 @@ header p{
  #class-footer p:hover,#task-footer p:hover{
  	color: #B37DB7;
  }
-#task-list{
+#task-list-area{
 	float:left;
 	width:220px;
 	height:100%;
@@ -81,13 +98,13 @@ header p{
 	border-right:1px solid #CCCCCC;
 
 }
-#task-list #task-state{
+#task-list-area #task-state{
 	padding-top: 70px;
 	background-color: #F2F2F2;
 	overflow: hidden;
 	border-bottom: 1px solid #CCCCCC;
 }
-#task-list #task-state li{
+#task-list-area #task-state li{
 	list-style: none;
 	float: left;
 	margin-left:10px; 
@@ -96,6 +113,21 @@ header p{
 	padding:7px 7px;
 	border-radius: 15%;
 	cursor:pointer;
+}
+#task-list-area li{
+	list-style: none;
+}
+#task-list-area #task-list .task-time{
+	background-color: #FAFAEE;
+	padding: 5px 0 5px 10px;
+}
+#task-list-area #task-list .task-title{
+	padding: 5px 0 5px 20px;
+	cursor:pointer;
+}
+#task-list-area #task-list .task-time .task-title{
+	background-color: #fff;
+	padding-left: 20px;
 }
 .task-type{
 	background-color: #fff;
@@ -111,12 +143,7 @@ header p{
 	border-bottom: 1px solid #CCCCCC;
 	position: relative;
 }
-#task-area #task-title p{
-	line-height: 60px;
-	font-size: 18px;
-	font-weight: bold;
-	margin-left: 10px;
-}
+
 #task-area #task-title #write,#task-area #task-title #save{
 	position: absolute;
 	right: 20px;
@@ -132,12 +159,103 @@ header p{
 	height: 60px;
 	border-bottom: 1px solid #CCCCCC;
 }
-#task-area #task-date p{
+#task-area #task-title p,#task-area #task-date p{
 	line-height: 60px;
-	font-size: 17px;
+	font-size: 18px;
 	margin-left: 10px;
 }
+#task-area #task-title input,#task-area #task-date input{
+	height: 25px;
+	width:260px;
+}
 #task-area #task-content p{
-	margin-left: 10px;
+	margin-left: 20px;
+	margin-top: 20px;
+}
+#task-area #task-content #write-content{
+	display: block;
+}
+#task-area #task-content textarea{
+	margin-left: 20px;
+	margin-top: 20px;
+	width:87%;
+	height: 220px;
+	display: block;
+	font-size: 15px;
+	line-height: 15px;
+	resize:none;
+}
+#task-area #task-content #write-content-button{
+	padding-left: 75%;
+	margin-top: 20px;
+}
+#task-area #task-content input{
+	width:60px;
+	height: 30px;
+	font-size: 15px;
+	border-radius: 10%;
+}
+#hidebg { 
+      position:absolute;
+      left:0px;top:0px;
+      background-color:#000;
+      width:100%;  /*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+      height:100%;
+      opacity:0.6;  /*非IE浏览器下设置透明度为60%*/
+     display: none;
+      z-index:20 ;
+  }
+#add-class{
+	width:350px;
+	height:200px;
+	background-color: #F2F2F2;
+	border-radius: 5%;
+	position:absolute;
+	top:30%;
+	left:30%;
+	display: none;
+	z-index:30;
+
+}
+#add-class #new-class{
+	border-bottom: 1px solid #CCCCCC;
+	height:40px;
+	background-color: #DDDDDD;
+	line-height: 40px;
+	padding-left: 25px;
+	background: url(images/newClass.png) no-repeat;
+	background-position: 1% center;
+	background-size: 20px 25px;
+
+}
+#add-class #new-class img{
+	float:right;
 	margin-top: 10px;
+	margin-right: 10px;
+	width:25px;
+	height:25px;
+	cursor: pointer;
+}
+#add-class #input-class {
+	padding-left: 20px;
+	margin-top: 20px;
+}
+#add-class #warning{
+	height:15px;
+	margin-left: 100px;
+	margin-top: 10px;
+	color:red;
+}
+#add-class #input-class input{
+	height:25px;
+}
+#add-class #add-class-button{
+	margin-left: 200px;
+	margin-top: 50px;
+}
+#add-class #add-class-button input{
+	width:60px;
+	height: 30px;
+	font-size: 15px;
+	border-radius: 10%;
 }
