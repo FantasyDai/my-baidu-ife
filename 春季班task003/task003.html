@@ -36,24 +36,25 @@
 		</div>
 		<ul id="task-list">
 			<li class="task-time">2016-01-08</li>
-			<li class="task-title">示例任务</li>
+			<li class="task-title">示例任务</li> 
 		</ul>
 		<div id="task-footer">
-			<p id="task-button">新增任务</p>
+			<p id="add-task-button">新增任务</p>
 		</div>
 	</div>
 	<div id="task-area" class="content">
 		<div id="task-title">
-			<p>任务标题：<input type="text"></p>
+			<p>任务标题：<span id="choosen-title">a</span><input type="text" id="write-title"><span id="title-warning" class="warning"></span></p>
 			<img src="images/save.png" id="save">
 			<img src="images/write.png" id="write">
 		</div>
 		<div id="task-date">
-			<p>任务时间：<input type="text"></p>
+			<p>任务时间：<span id="choosen-date">b</span><input type="text" id="write-date" ><span id="date-warning" class="warning"></span></p>
 		</div>
 		<div id="task-content">
 			<div id="write-content">
 				<textarea></textarea>
+				<span id="content-warning" class="warning"></span>
 				<div id="write-content-button">
 					<input type="button" value="取消">
 					<input type="button" value="保存">

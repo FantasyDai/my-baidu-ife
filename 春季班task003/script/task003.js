@@ -1,10 +1,23 @@
-var classButton=document.getElementById("class-button"),
+var  data=[{classname:"默认分类",task:[]}],
+      classButton=document.getElementById("class-button"),
       hiddenBg=document.getElementById("hidebg"),
       addClass=document.getElementById("add-class"),
       cancelClass=document.getElementById("cancel-class"),
       addClassButton=document.getElementById("add-class-button"),
       warning=document.getElementById("warning"),
-      classList=document.getElementById("class-list");
+      classList=document.getElementById("class-list"),
+      addTask=document.getElementById("add-task-button"),
+      writeTitle=document.getElementById("write-title"),
+      writeDate=document.getElementById("write-date"),
+      writeContent=document.getElementById("write-content"),
+      writeButton=document.getElementById("write-content-button"),
+      choosenTitle=document.getElementById("choosen-title"),
+      choosenDate=document.getElementById("choosen-date"),
+      showTask=document.getElementById("show-task"),
+      titleWarning=document.getElementById("title-warning"),
+      dateWarning=document.getElementById("date-warning"),
+      contentWarning=document.getElementById("content-warning");
+
 
 //点击分类标题
 addEvent(classList,"click",function(event){
@@ -26,8 +39,14 @@ addEvent(classList,"click",function(event){
 
 //点击新增分类按钮
 addEvent(classButton,"click",function(){
-	hiddenBg.style.display="block";
-	addClass.style.display="block";
+	var choosenClass=document.getElementsByClassName("choosen-class");
+	if(choosenClass[0].nodeName=="LI"){
+		alert("此分类下暂不支持新增子分类！")
+	}else{
+		hiddenBg.style.display="block";
+		addClass.style.display="block";
+	}
+	
 });
 //新增分类界面点击关闭按钮
 addEvent(cancelClass,"click",function(){
@@ -40,7 +59,9 @@ addEvent(addClassButton,"click",function(event){
 	event=event||window.event;
 	var target=event.target,
 	      className=document.getElementById("class-name"),
-	      classNameList=document.getElementsByClassName("class-item-0");
+	      newClassText=className.value,
+	      classNameList=document.getElementsByClassName("class-item-0"),
+	      choosenClass=document.getElementsByClassName("choosen-class");
 	if(target.value=="取消"){
 		hiddenBg.style.display="none";
 		addClass.style.display="none";
@@ -49,23 +70,134 @@ addEvent(addClassButton,"click",function(event){
 		if(className.value==""){
 			warning.innerHTML="类名不能为空！";
 		}else{
-			for(var i=0,len=classNameList.length;i<len;i++){
-				if(className.value==classNameList[i].children[0].innerHTML){
-					warning.innerHTML="类名已存在！";
-					return;
+			if(choosenClass[0].nodeName=="H2"){
+				for(var i=0,len=data.length;i<len;i++){
+					if(className.value==data[i].classname){
+						warning.innerHTML="类名已存在！";
+						return;
+					}
 				}
+				var newClass=document.createElement("li");
+				var newClassName=document.createElement("h3");
+				classList.appendChild(newClass);
+				newClass.className="class-item-0";
+				newClass.appendChild(newClassName);
+				newClassName.innerHTML=newClassText;
+				hiddenBg.style.display="none";
+				addClass.style.display="none";
+				className.value="";
+				data.push({classname:newClassText,
+					     subclass:[],
+					     task:[]
+					     });
+			}else{    
+				for(var i=0,len=data.length;i<len;i++){
+					if(data[i].classname==choosenClass[0].innerHTML){
+						for(var j=0;j<data[i].subclass.length;j++){
+							if(data[i].subclass[j].subclassname==className.value){
+								warning.innerHTML="类名已存在！";
+								return;
+						}	}
+					}
+				}
+
+				var newClassName=document.createElement("li");
+				 newClassName.innerHTML=newClassText;
+				 newClassName.className="class-item-1";
+				if(choosenClass[0].nextElementSibling){
+					choosenClass[0].nextElementSibling.appendChild(newClassName);
+				}else{
+					var newClass=document.createElement("ul");
+					insertAfter(newClass,choosenClass[0]);
+					newClass.appendChild(newClassName);
+				}
+				for(var i=0,len=data.length;i<len;i++){
+					if(data[i].classname==choosenClass[0].innerHTML){
+						data[i].subclass.push({subclassname:newClassText,task:[]});
+					}
+				}
+				hiddenBg.style.display="none";
+				addClass.style.display="none";
+				className.value="";
 			}
-			var newClassText=className.value;
-			var newClass=document.createElement("li");
-			var newClassName=document.createElement("h3");
-			classList.appendChild(newClass);
-			newClass.className="class-item-0";
-			newClass.appendChild(newClassName);
-			newClassName.innerHTML=newClassText;
-			hiddenBg.style.display="none";
-			addClass.style.display="none";
-			className.value="";
-			
 		}
 	}
 });
+//点击新增任务按钮
+addEvent(addTask,"click",function(){
+	writeTitle.style.display="inline";
+	writeDate.style.display="inline";
+	writeContent.style.display="block";
+	choosenTitle.innerHTML="";
+	choosenDate.innerHTML="";
+	showTask.innerHTML="";
+});
+//点击取消或保存新增任务按钮
+addEvent(writeButton,"click",function(event){
+	event=event||window.event;
+	var target=event.target,
+	     taskTitle=writeTitle.value,
+	     taskDate=writeDate.value,
+	     taskContent=writeContent.children[0].value,
+	      choosenClass=document.getElementsByClassName("choosen-class");
+	if(target.value=="取消"){
+		titleWarning.innerHTML="";
+		dateWarning.innerHTML="";
+		contentWarning.innerHTML="";
+		writeTitle.style.display="none";
+		writeDate.style.display="none";
+		writeContent.style.display="none";
+		writeTitle.value="";
+		writeDate.value="";
+		writeContent.children[0].value="";
+	}else if(target.value=="保存"){
+		if(writeTitle.value==""){
+			titleWarning.innerHTML="请输入任务标题！";
+			return;
+
+		}else{
+			titleWarning.innerHTML="";
+		}
+		if(writeDate.value==""){
+			dateWarning.innerHTML="请输入任务时间！";
+			return;
+		}
+		else{
+			dateWarning.innerHTML="";
+		}
+		if(writeContent.children[0].value==""){
+			contentWarning.innerHTML="请输入任务内容！";
+			return;
+		}
+		else{
+			contentWarning.innerHTML="";
+		}
+		for(var i=0,len=data.length;i<len;i++){
+			if(choosenClass[0].innerHTML==data[i].classname){
+				data[i].task.push({title:taskTitle,date:taskDate,content:taskContent});
+				writeTitle.style.display="none";
+				writeDate.style.display="none";
+				writeContent.style.display="none";
+				writeTitle.value="";
+				writeDate.value="";
+				writeContent.children[0].value="";
+				choosenTitle.innerHTML=taskTitle;
+				choosenDate.innerHTML=taskDate;
+				showTask.innerHTML=taskContent;
+
+			}else if(data[i].subclass){
+				for(var j=0;j<data[i].subclass.length;j++){
+					if(choosenClass[0].innerHTML==data[i].subclass[j].subclassname){
+						data[i].subclass[j].task.push({title:taskTitle,date:taskDate,content:taskContent});
+						writeTitle.style.display="none";
+						writeDate.style.display="none";
+						writeContent.style.display="none";
+						writeTitle.value="";
+						writeDate.value="";
+						writeContent.children[0].value="";
+					}
+				}
+			}
+		}
+	}
+})

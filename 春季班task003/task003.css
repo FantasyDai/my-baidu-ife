@@ -5,7 +5,7 @@
 body,html{
 	height: 100%;
 	min-width: 700px;
-	min-height:400px;
+	min-height:500px;
 }
 #container{
 	height:100%;
@@ -39,6 +39,9 @@ header p{
 #class-list-area #all-class{
 	padding: 90px 0 20px 10px;
 }
+#class-list-area #class-list{
+	overflow:auto;
+}
 #class-list-area h2{
 	padding: 5px 0 5px 10px;
 	font-weight: normal;
@@ -49,7 +52,7 @@ header p{
 	list-style: none;
 }
 #class-list-area  .class-item-0 h3{
-	margin-top: 10px;
+	
 	padding: 5px 0 5px 45px;
 	background: url(images/222.png) no-repeat;
 	background-position: 20px 5px;
@@ -167,13 +170,14 @@ header p{
 #task-area #task-title input,#task-area #task-date input{
 	height: 25px;
 	width:260px;
+	display:none;
 }
 #task-area #task-content p{
 	margin-left: 20px;
 	margin-top: 20px;
 }
 #task-area #task-content #write-content{
-	display: block;
+	display: none;
 }
 #task-area #task-content textarea{
 	margin-left: 20px;
@@ -258,4 +262,9 @@ header p{
 	height: 30px;
 	font-size: 15px;
 	border-radius: 10%;
+}
+.warning{
+	color:red;
+	font-size: 15px;
+	margin-left: 10px;
 }
