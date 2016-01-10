@@ -1,5 +1,5 @@
-var  data=[{classname:"默认分类",task:[]}],
-      classButton=document.getElementById("class-button"),
+var  data=[{classname:"默认分类",task:[{date:"2016-01-08",title:["示例任务"],content:["学习使用GTD Tools"]}]}],
+      classButton=document.getElementById("class-button"), 
       hiddenBg=document.getElementById("hidebg"),
       addClass=document.getElementById("add-class"),
       cancelClass=document.getElementById("cancel-class"),
@@ -16,7 +16,8 @@ var  data=[{classname:"默认分类",task:[]}],
       showTask=document.getElementById("show-task"),
       titleWarning=document.getElementById("title-warning"),
       dateWarning=document.getElementById("date-warning"),
-      contentWarning=document.getElementById("content-warning");
+      contentWarning=document.getElementById("content-warning"),
+      taskList=document.getElementById("task-list");
 
 
 //点击分类标题
@@ -34,6 +35,7 @@ addEvent(classList,"click",function(event){
 	if(target.nodeName=="H2"||target.nodeName=="H3"||target.className=="class-item-1"){
 		target.className="choosen-class";
 	}
+
 
 });
 
@@ -139,7 +141,9 @@ addEvent(writeButton,"click",function(event){
 	     taskTitle=writeTitle.value,
 	     taskDate=writeDate.value,
 	     taskContent=writeContent.children[0].value,
-	      choosenClass=document.getElementsByClassName("choosen-class");
+	     choosenClass=document.getElementsByClassName("choosen-class"),
+	     hasTaskDate=false,
+	     hasInsert=false;
 	if(target.value=="取消"){
 		titleWarning.innerHTML="";
 		dateWarning.innerHTML="";
@@ -173,8 +177,43 @@ addEvent(writeButton,"click",function(event){
 			contentWarning.innerHTML="";
 		}
 		for(var i=0,len=data.length;i<len;i++){
-			if(choosenClass[0].innerHTML==data[i].classname){
-				data[i].task.push({title:taskTitle,date:taskDate,content:taskContent});
+				if(!data[i].task.length){
+					data[i].task.push({date:taskDate,title:[taskTitle],content:[taskContent]});
+				}else{
+					for(var j=0;j<data[i].task.length;j++){
+						if(taskDate==data[i].task[j].date){
+							data[i].task[j].title.push(taskTitle);
+							data[i].task[j].content.push(taskContent);
+							hasTaskDate=true;
+						}
+					}
+					if(hasTaskDate==false){
+						var newTime=taskDate.split("-"),
+				    		 newYear=parseInt(newTime[0]),
+				    		 newMonth=parseInt(newTime[1]),
+				     		newDay=parseInt(newTime[2]);
+						for(var k=data[i].task.length-1;k>=0;k--){
+							var date=data[i].task[k].date.split("-"),
+						      	year=parseInt(date[0]),
+						      	month=parseInt(date[1]),
+						      	day=parseInt(date[2]);
+						      	if(newYear<year){
+						      		data[i].task.splice(k+1,0,{date:taskDate,title:[taskTitle],content:[taskContent]});
+						      		hasInsert=true;
+						      	}else if(newYear==year&&newMonth<month){
+						      		data[i].task.splice(k+1,0,{date:taskDate,title:[taskTitle],content:[taskContent]});
+						      		hasInsert=true;
+						      	}else if(newYear==year&&newMonth==month&&newDay<day){
+						      		data[i].task.splice(k+1,0,{date:taskDate,title:[taskTitle],content:[taskContent]});
+						      		hasInsert=true;
+						      	}
+						      	
+						}
+						if(hasInsert==false){
+						      	data[i].task.unshift({date:taskDate,title:[taskTitle],content:[taskContent]});
+						      	}
+					}
+				}
 				writeTitle.style.display="none";
 				writeDate.style.display="none";
 				writeContent.style.display="none";
@@ -185,19 +224,48 @@ addEvent(writeButton,"click",function(event){
 				choosenDate.innerHTML=taskDate;
 				showTask.innerHTML=taskContent;
 
-			}else if(data[i].subclass){
+			 if(data[i].subclass){
 				for(var j=0;j<data[i].subclass.length;j++){
 					if(choosenClass[0].innerHTML==data[i].subclass[j].subclassname){
-						data[i].subclass[j].task.push({title:taskTitle,date:taskDate,content:taskContent});
-						writeTitle.style.display="none";
-						writeDate.style.display="none";
-						writeContent.style.display="none";
-						writeTitle.value="";
-						writeDate.value="";
-						writeContent.children[0].value="";
+						if(!data[i].subclass[j].task.length){
+							data[i].subclass[j].task.push({date:taskDate,title:[taskTitle],content:[taskContent]});
+						}else{
+							for(var s=0;s<data[i].subclass[j].task.length;s++){
+								if(taskDate==data[i].subclass[j].task[s].date){
+									data[i].subclass[j].task[s].title.push(taskTitle);
+									data[i].subclass[j].task[s].content.push(taskContent);
+									hasTaskDate=true;
+								}
+							}
+							if(hasTaskDate==false){
+								var newTime=taskDate.split("-"),
+								 newYear=parseInt(newTime[0]),
+				    				 newMonth=parseInt(newTime[1]),
+				     				newDay=parseInt(newTime[2]);
+								for(var k=data[i].subclass[j].task.length-1;k>=0;k--){
+									var date=data[i].subclass[j].task[k].date.split("-"),
+						      			year=parseInt(date[0]),
+						      			month=parseInt(date[1]),
+						      			day=parseInt(date[2]);
+						      			if(newYear<year){
+						      				data[i].subclass[j].task.splice(k+1,0,{date:taskDate,title:[taskTitle],content:[taskContent]});
+						      				hasInsert=true;
+						      			}else if(newYear==year&&newMonth<month){
+						      				data[i].subclass[j].task.splice(k+1,0,{date:taskDate,title:[taskTitle],content:[taskContent]});
+						      				hasInsert=true;
+						      			}else if(newYear==year&&newMonth==month&&newDay<day){
+						      				data[i].subclass[j].task.splice(k+1,0,{date:taskDate,title:[taskTitle],content:[taskContent]});
+						      			hasInsert=true;
+						      			}
+								}
+								if(hasInsert==false){
+						      			data[i].subclass[j].task.unshift({date:taskDate,title:[taskTitle],content:[taskContent]});
+						      			}
+							}
+						}
 					}
 				}
 			}
 		}
 	}
-})
+});
