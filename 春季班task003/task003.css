@@ -64,6 +64,9 @@ header p{
 #class-list-area  #class-list .choosen-class{
 	background-color: #5E636E;
 }
+#task-list .choosen-task{
+	background-color: #F2F2F2;
+}
 #class-list-area  .class-item-0 li{
 	padding: 5px 0;
 	background: url(images/item-1.png) no-repeat;
