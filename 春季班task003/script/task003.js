@@ -21,6 +21,8 @@ var  data=[{classname:"默认分类",task:[{date:"2016-01-08",title:["示例任�
       contentWarning=document.getElementById("content-warning"),
       taskList=document.getElementById("task-list"),
       taskState=document.getElementById("task-state"),
+      classItem=document.getElementsByClassName('class'),
+      closeButton=document.getElementsByClassName("close-button"),
       subData=[];
 
 
@@ -30,6 +32,14 @@ addEvent(classList,"click",function(event){
 	event=event||window.event;
 	var target=event.target;
 	var choosenClass=document.getElementsByClassName("choosen-class");
+	var state=taskState.firstElementChild.children;
+	for(var i=0;i<state.length;i++){
+		if(state[i].innerHTML=="所有"){
+			state[i].className="task-type";
+		}else{
+			state[i].className="";
+		}
+	}
 	showTaskList(target);
 	for (var i=0,len=choosenClass.length;i<len;i++){
 		if(choosenClass[i].nodeName=="LI"){
@@ -44,6 +54,36 @@ addEvent(classList,"click",function(event){
 
 	
 });
+function bindClose(){
+	//鼠标移动到分类标题上
+	for(var j=0;j<classItem.length;j++){
+		addEvent(classItem[j],'mouseenter',function(event){
+		event=event||window.event;
+		event.stopPropagation();
+		var target=event.target;
+		if(target.children.length){
+			if(target.children[0].className=="close-button"){
+				target.children[0].style.visibility="visible";
+			}
+		}
+	});
+}
+
+	//鼠标移出分类标题
+	for(var j=0;j<classItem.length;j++){
+		addEvent(classItem[j],'mouseleave',function(event){
+		event=event||window.event;
+		var target=event.target;
+		if(target.children.length){
+			if(target.children[0].className=="close-button"){
+				target.children[0].style.visibility="hidden";
+			}
+		}
+	});
+}
+}
+bindClose();
+
 //清空任务列表
 function removeTask(){
 	for(var i=taskList.children.length-1;i>=0;i--){
@@ -52,11 +92,14 @@ function removeTask(){
 }
 //更新任务列表函数
 function showTaskList(target){
+	if(target.nodeName=="H2"){
+		removeTask();
+	}
 	if(target.nodeName=="H3"){
 		subData=[];
 		removeTask();
 		for(var i=0;i<data.length;i++){
-			if(target.innerHTML==data[i].classname){
+			if(target.firstChild.nodeValue==data[i].classname){
 				for(var j=0;j<data[i].task.length;j++){
 					subData.push(data[i].task[j]);
 					var date=document.createElement('li');
@@ -74,13 +117,13 @@ function showTaskList(target){
 				}
 			}
 		}
-	}else if(target.className=="class-item-1"||target.className=="choosen-class"){  //当点击的是子分类时
+	}else if(target.className=="class-item-1"||target.className=="choosen-class"&&target.nodeName=="LI"){  //当点击的是子分类时
 		removeTask();
 		subData=[];
 		for(var i=0;i<data.length;i++){
 			if(data[i].subclass){
 				for(var s=0;s<data[i].subclass.length;s++){
-					if(target.innerHTML==data[i].subclass[s].subclassname){
+					if(target.firstChild.nodeValue==data[i].subclass[s].subclassname){
 						for(var j=0;j<data[i].subclass[s].task.length;j++){
 							subData.push(data[i].subclass[s].task[j]);
 							var date=document.createElement('li');
@@ -156,7 +199,7 @@ function showTaskList(target){
 //点击新增分类按钮
 addEvent(classButton,"click",function(){
 	var choosenClass=document.getElementsByClassName("choosen-class");
-	if(choosenClass[0].nodeName=="LI"){
+	if(choosenClass[0].nodeName=="LI"||choosenClass[0].firstChild.nodeValue=="默认分类"){
 		alert("此分类下暂不支持新增子分类！")
 	}else{
 		hiddenBg.style.display="block";
@@ -169,6 +212,7 @@ addEvent(cancelClass,"click",function(){
 	hiddenBg.style.display="none";
 	addClass.style.display="none";
 	warning.innerHTML="";
+	document.getElementById("class-name").value="";
 });
 //新增分类界面点击取消或保存按钮
 addEvent(addClassButton,"click",function(event){
@@ -181,6 +225,7 @@ addEvent(addClassButton,"click",function(event){
 	if(target.value=="取消"){
 		hiddenBg.style.display="none";
 		addClass.style.display="none";
+		className.value="";
 		warning.innerHTML="";
 	}else if(target.value=="保存"){
 		if(className.value==""){
@@ -195,10 +240,17 @@ addEvent(addClassButton,"click",function(event){
 				}
 				var newClass=document.createElement("li");
 				var newClassName=document.createElement("h3");
+				var closeSpan=document.createElement("span");
 				classList.appendChild(newClass);
 				newClass.className="class-item-0";
 				newClass.appendChild(newClassName);
 				newClassName.innerHTML=newClassText;
+				newClassName.className="class";
+				classItem=document.getElementsByClassName('class');
+				bindClose();
+				newClassName.className="";
+				newClassName.appendChild(closeSpan);
+				closeSpan.className="close-button";
 				hiddenBg.style.display="none";
 				addClass.style.display="none";
 				className.value="";
@@ -208,7 +260,7 @@ addEvent(addClassButton,"click",function(event){
 					     });
 			}else{    
 				for(var i=0,len=data.length;i<len;i++){
-					if(data[i].classname==choosenClass[0].innerHTML){
+					if(data[i].classname==choosenClass[0].firstChild.nodeValue){
 						for(var j=0;j<data[i].subclass.length;j++){
 							if(data[i].subclass[j].subclassname==className.value){
 								warning.innerHTML="类名已存在！";
@@ -218,17 +270,24 @@ addEvent(addClassButton,"click",function(event){
 				}
 
 				var newClassName=document.createElement("li");
+				var closeSpan=document.createElement("span");
 				 newClassName.innerHTML=newClassText;
-				 newClassName.className="class-item-1";
+				 newClassName.className="class-item-1 class";
 				if(choosenClass[0].nextElementSibling){
 					choosenClass[0].nextElementSibling.appendChild(newClassName);
+					newClassName.appendChild("closeSpan");
 				}else{
 					var newClass=document.createElement("ul");
 					insertAfter(newClass,choosenClass[0]);
 					newClass.appendChild(newClassName);
+					newClassName.appendChild(closeSpan);
 				}
+				closeSpan.className="close-button";
+				bindClose();
+				deleteClass();
+				newClassName.className="class-item-1";
 				for(var i=0,len=data.length;i<len;i++){
-					if(data[i].classname==choosenClass[0].innerHTML){
+					if(data[i].classname==choosenClass[0].firstChild.nodeValue){
 						data[i].subclass.push({subclassname:newClassText,task:[]});
 					}
 				}
@@ -269,29 +328,45 @@ addEvent(writeButton,"click",function(event){
 		writeDate.value="";
 		writeContent.children[0].value="";
 	}else if(target.value=="保存"){
+		//任务标题输入验证
 		if(writeTitle.value==""){
 			titleWarning.innerHTML="请输入任务标题！";
 			return;
 
-		}else{
+		}else if(writeTitle.value.length>10){
+			titleWarning.innerHTML="标题长度不能超过10个字符！";
+			return;
+		}
+		else{
 			titleWarning.innerHTML="";
 		}
+		//任务时间输入验证
 		if(writeDate.value==""){
 			dateWarning.innerHTML="请输入任务时间！";
+			return;
+		}else if(!(/\d{4}-\d{2}-\d{2}/.test(writeDate.value))){
+			dateWarning.innerHTML="请按指定格式(YYYY-MM-DD)输入任务时间！";
+			return;
+		}else if(Date.parse(writeDate.value)<(new Date()).getTime()){
+			dateWarning.innerHTML="任务时间应晚于当日！";
 			return;
 		}
 		else{
 			dateWarning.innerHTML="";
 		}
+		//任务内容输入验证
 		if(writeContent.children[0].value==""){
 			contentWarning.innerHTML="请输入任务内容！";
+			return;
+		}else if(writeContent.children[0].value.length>50){
+			contentWarning.innerHTML="当前字符长度为"+writeContent.children[0].value.length+"，任务内容长度不能大于50个字符！";
 			return;
 		}
 		else{
 			contentWarning.innerHTML="";
 		}
 		for(var i=0,len=data.length;i<len;i++){
-			if(data[i].classname==choosenClass[0].innerHTML){
+			if(data[i].classname==choosenClass[0].firstChild.nodeValue){
 				var choosen=document.getElementsByClassName("choosen-class")[0];
 				inseretData(i,taskTitle,taskDate,taskContent, hasTaskDate,hasInsert);
 				showTaskList(choosen);
@@ -310,10 +385,19 @@ addEvent(writeButton,"click",function(event){
 				choosenTitle.innerHTML=taskTitle;
 				choosenDate.innerHTML=taskDate;
 				showTask.innerHTML=taskContent;
+				//任务列表状态变换为所有
+				var state=taskState.firstElementChild.children;
+				for(var i=0;i<state.length;i++){
+					if(state[i].innerHTML=="所有"){
+						state[i].className="task-type";
+					}else{
+						state[i].className="";
+					}
+				}
 			}
 			 else if(data[i].subclass){
 				for(var j=0;j<data[i].subclass.length;j++){
-					if(choosenClass[0].innerHTML==data[i].subclass[j].subclassname){
+					if(choosenClass[0].firstChild.nodeValue==data[i].subclass[j].subclassname){
 						var choosen=document.getElementsByClassName("choosen-class")[0];
 						inseretData(i,taskTitle,taskDate,taskContent, hasTaskDate,hasInsert);
 						writeTitle.style.display="none";
@@ -368,6 +452,15 @@ addEvent(writeButton,"click",function(event){
 						for(var t=0;t<taskItem.length;t++){
 							if(taskItem[t].innerHTML==taskTitle){
 								taskItem[t].className="task-title choosen-task";
+							}
+						}
+						//任务列表状态变换为所有
+						var state=taskState.firstElementChild.children;
+						for(var q=0;q<state.length;q++){
+							if(state[q].innerHTML=="所有"){
+								state[q].className="task-type";
+							}else{
+								state[q].className="";
 							}
 						}
 					}
@@ -469,3 +562,25 @@ addEvent(taskState,"click",function(event){
 		showTaskList(target);
 	}
 });
+//点击删除分类按钮
+function deleteClass(){
+	for(var i=0;i<closeButton.length;i++){
+		addEvent(closeButton[i],'click',function(event){
+			event=event||window.event;
+			target=event.target;
+			var deleteClass=target.parentNode;
+			var confirmMessage=confirm("确认删除此分类？");
+			if(confirmMessage==true){
+				if(deleteClass.nodeName=="H3"){
+					for(var j=0;j<data.length;j++){
+						if(deleteClass.firstChild.nodeValue==data[j].classname){
+							data.splice(j,1);
+							showTaskList();
+						}
+					}
+				}
+		}
+		});
+	}
+}
+deleteClass();

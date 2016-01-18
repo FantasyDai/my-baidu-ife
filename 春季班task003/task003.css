@@ -56,13 +56,24 @@ header p{
 	padding: 5px 0 5px 45px;
 	background: url(images/222.png) no-repeat;
 	background-position: 20px 5px;
-	background-size: 20px 20px;
+	background-size: 21px 21px;
 	cursor: pointer;
 	font-weight: normal;
 	font-size: 1em;
 }
+
+#class-list-area  .class-item-0 .close-button{
+	display: inline-block;
+	width:15px;
+	height:15px;
+	background: url(images/close.png)  no-repeat;
+	background-size: 16px 16px;
+	float:right;
+	margin-right: 10px;
+	visibility: hidden;
+}
 #class-list-area  #class-list .choosen-class{
-	background-color: #5E636E;
+	background-color: #DDDDDD;
 }
 #task-list .choosen-task{
 	background-color: #F2F2F2;
@@ -74,6 +85,8 @@ header p{
 	background-size: 20px 20px;
 	padding-left: 60px;
 	cursor: pointer;
+}
+#class-list-area  .class-item-0 li:hover{
 }
  #class-footer,#task-footer{
 	border-top: solid 1px #CCCCCC;
